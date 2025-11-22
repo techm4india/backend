@@ -16,10 +16,7 @@ Add these environment variables in **Vercel Dashboard → Your Project → Setti
 
 ### Authentication
 
-| Variable Name | Description | Example Value | How to Generate |
-|--------------|-------------|---------------|-----------------|
-| `JWT_SECRET` | Secret key for JWT token signing (REQUIRED) | `your-very-long-random-secret-key-here` | Generate a strong random string (min 32 characters) |
-| `AUTH_MODE` | Authentication mode | `custom` or `supabase` | Use `custom` for JWT-based auth |
+**Note:** Authentication is handled entirely by Supabase Auth. No additional authentication environment variables are needed.
 
 ### Payment (Razorpay)
 
@@ -36,10 +33,8 @@ Add these environment variables in **Vercel Dashboard → Your Project → Setti
 
 | Variable Name | Default Value | Description |
 |--------------|--------------|-------------|
-| `JWT_EXPIRES_IN` | `7d` | JWT token expiration (e.g., `7d`, `24h`, `30m`) |
 | `ENVIRONMENT` | `development` | Set to `production` for production |
 | `CORS_ORIGIN` | `*` | Comma-separated list of allowed origins (e.g., `https://your-frontend.vercel.app,https://www.yourdomain.com`) |
-| `BCRYPT_SALT_ROUNDS` | `10` | Password hashing rounds (10-12 recommended) |
 | `PORT` | `4000` | Server port (Vercel handles this automatically) |
 
 ---
@@ -52,36 +47,11 @@ Copy and paste this into Vercel Dashboard:
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
 SUPABASE_ANON_KEY=your_anon_key_here
-JWT_SECRET=your-very-long-random-secret-key-minimum-32-characters
-AUTH_MODE=custom
-JWT_EXPIRES_IN=7d
 ENVIRONMENT=production
 CORS_ORIGIN=https://your-frontend.vercel.app
-BCRYPT_SALT_ROUNDS=10
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_SECRET=your_razorpay_secret
 ```
-
----
-
-## 🔐 How to Generate JWT_SECRET
-
-### Option 1: Using Python
-```python
-import secrets
-print(secrets.token_urlsafe(32))
-```
-
-### Option 2: Using OpenSSL (Terminal)
-```bash
-openssl rand -base64 32
-```
-
-### Option 3: Online Generator
-- Visit: https://generate-secret.vercel.app/32
-- Copy the generated secret
-
-**Important:** Use a strong, random secret (minimum 32 characters). Never use simple words or predictable strings.
 
 ---
 
@@ -110,7 +80,6 @@ openssl rand -base64 32
 After adding environment variables in Vercel:
 
 - [ ] All required variables are set
-- [ ] `JWT_SECRET` is a strong random string (32+ characters)
 - [ ] `SUPABASE_URL` starts with `https://`
 - [ ] `CORS_ORIGIN` includes your frontend URL (if you have one)
 - [ ] `ENVIRONMENT` is set to `production`
@@ -121,10 +90,10 @@ After adding environment variables in Vercel:
 ## 🚨 Security Notes
 
 1. **Never commit** `.env` files to Git
-2. **Never share** `SUPABASE_SERVICE_ROLE_KEY` or `JWT_SECRET` publicly
-3. **Use different** `JWT_SECRET` for production vs development
-4. **Rotate secrets** if they're ever exposed
-5. **Restrict** `CORS_ORIGIN` to your actual frontend domains in production
+2. **Never share** `SUPABASE_SERVICE_ROLE_KEY` publicly
+3. **Rotate secrets** if they're ever exposed
+4. **Restrict** `CORS_ORIGIN` to your actual frontend domains in production
+5. **Use Supabase Auth** - All authentication is handled securely by Supabase
 
 ---
 
