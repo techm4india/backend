@@ -34,6 +34,19 @@ app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(HTTPException, http_exception_handler)
 app.add_exception_handler(Exception, general_exception_handler)
 
+# Root route
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return JSONResponse(
+        content={
+            "success": True,
+            "message": "API is running",
+            "docs": "/docs",
+            "health": "/api/health",
+        }
+    )
+
 # Health check
 @app.get("/api/health")
 async def health_check():
