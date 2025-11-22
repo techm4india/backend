@@ -1,4 +1,3 @@
-from src.config.supabase import supabase
 from src.models.user_model import UserModel
 from src.services.otp_service import OtpService
 
@@ -9,6 +8,7 @@ class AuthService:
     @staticmethod
     async def register(email: str, password: str, name: str, phone: str = None) -> dict:
         """Register new user using Supabase Auth"""
+        from src.config.supabase import supabase
         try:
             result = supabase.auth.sign_up(
                 {
@@ -55,6 +55,7 @@ class AuthService:
     @staticmethod
     async def login(email: str, password: str) -> dict:
         """Login user using Supabase Auth"""
+        from src.config.supabase import supabase
         try:
             result = supabase.auth.sign_in_with_password(
                 {"email": email, "password": password}
@@ -118,6 +119,7 @@ class AuthService:
     @staticmethod
     async def refreshToken(refresh_token: str) -> dict:
         """Refresh token using Supabase Auth"""
+        from src.config.supabase import supabase
         try:
             result = supabase.auth.refresh_session(refresh_token)
             return {"session": result.session}

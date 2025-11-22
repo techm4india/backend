@@ -1,5 +1,4 @@
 from typing import Optional
-from src.config.supabase import supabase
 from src.utils.logger import logger
 
 
@@ -9,6 +8,7 @@ class PaymentModel:
     @staticmethod
     async def create(payment_data: dict) -> dict:
         """Create payment record"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("payments").insert(payment_data).execute()
             if not result.data:
@@ -21,6 +21,7 @@ class PaymentModel:
     @staticmethod
     async def findById(id: str) -> Optional[dict]:
         """Find payment by ID"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("payments").select("*").eq("id", id).execute()
             return result.data[0] if result.data else None
@@ -31,6 +32,7 @@ class PaymentModel:
     @staticmethod
     async def findByProviderId(provider_payment_id: str) -> Optional[dict]:
         """Find payment by provider payment ID"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("payments")
@@ -46,6 +48,7 @@ class PaymentModel:
     @staticmethod
     async def update(id: str, updates: dict) -> dict:
         """Update payment"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("payments")
@@ -63,6 +66,7 @@ class PaymentModel:
     @staticmethod
     async def findByUserId(user_id: str, limit: int = 50, offset: int = 0) -> list:
         """Get payments by user ID"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("payments")
@@ -80,6 +84,7 @@ class PaymentModel:
     @staticmethod
     async def list(limit: int = 100, offset: int = 0) -> list:
         """Get all payments (admin)"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("payments")

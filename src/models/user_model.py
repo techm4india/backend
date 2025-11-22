@@ -1,5 +1,4 @@
 from typing import Optional
-from src.config.supabase import supabase
 
 
 class UserModel:
@@ -8,6 +7,7 @@ class UserModel:
     @staticmethod
     async def create(user_data: dict) -> dict:
         """Create a new user"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("users").insert(user_data).execute()
             if not result.data:
@@ -21,6 +21,7 @@ class UserModel:
     @staticmethod
     async def findByEmail(email: str) -> Optional[dict]:
         """Find user by email"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("users").select("*").eq("email", email).execute()
             return result.data[0] if result.data else None
@@ -32,6 +33,7 @@ class UserModel:
     @staticmethod
     async def findById(id: str) -> Optional[dict]:
         """Find user by ID"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("users").select("*").eq("id", id).execute()
             return result.data[0] if result.data else None
@@ -43,6 +45,7 @@ class UserModel:
     @staticmethod
     async def findByPhone(phone: str) -> Optional[dict]:
         """Find user by phone"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("users").select("*").eq("phone", phone).execute()
             return result.data[0] if result.data else None
@@ -54,6 +57,7 @@ class UserModel:
     @staticmethod
     async def update(id: str, updates: dict) -> dict:
         """Update user"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("users")
@@ -100,6 +104,7 @@ class UserModel:
     @staticmethod
     async def list(limit: int = 100, offset: int = 0) -> list:
         """List all users (admin)"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("users")
@@ -117,6 +122,7 @@ class UserModel:
     @staticmethod
     async def delete(id: str) -> bool:
         """Delete user"""
+        from src.config.supabase import supabase
         try:
             supabase.table("users").delete().eq("id", id).execute()
             return True

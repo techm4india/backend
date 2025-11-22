@@ -1,6 +1,5 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from src.config.supabase import supabase
 from src.models.user_model import UserModel
 
 security = HTTPBearer()
@@ -10,6 +9,7 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ) -> dict:
     """Authentication dependency using Supabase Auth"""
+    from src.config.supabase import supabase
     token = credentials.credentials
 
     try:

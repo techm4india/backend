@@ -1,5 +1,4 @@
 from typing import Optional
-from src.config.supabase import supabase
 from src.utils.logger import logger
 
 
@@ -9,6 +8,7 @@ class OrderModel:
     @staticmethod
     async def create(order_data: dict) -> dict:
         """Create order record"""
+        from src.config.supabase import supabase
         try:
             result = supabase.table("orders").insert(order_data).execute()
             if not result.data:
@@ -21,6 +21,7 @@ class OrderModel:
     @staticmethod
     async def findById(id: str) -> Optional[dict]:
         """Find order by ID"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("orders")
@@ -36,6 +37,7 @@ class OrderModel:
     @staticmethod
     async def update(id: str, updates: dict) -> dict:
         """Update order"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("orders")
@@ -53,6 +55,7 @@ class OrderModel:
     @staticmethod
     async def findByUserId(user_id: str, limit: int = 50, offset: int = 0) -> list:
         """Get orders by user ID"""
+        from src.config.supabase import supabase
         try:
             result = (
                 supabase.table("orders")
@@ -70,6 +73,7 @@ class OrderModel:
     @staticmethod
     async def list(limit: int = 100, offset: int = 0, filters: dict = None) -> list:
         """Get all orders (admin)"""
+        from src.config.supabase import supabase
         try:
             query = (
                 supabase.table("orders")
