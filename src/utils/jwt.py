@@ -5,7 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-JWT_SECRET = os.getenv("JWT_SECRET", "fallback-secret-change-in-production")
+JWT_SECRET = os.getenv("JWT_SECRET")
+if not JWT_SECRET:
+    raise ValueError(
+        "JWT_SECRET environment variable is required. "
+        "Please set it in your environment variables."
+    )
 JWT_EXPIRES_IN = os.getenv("JWT_EXPIRES_IN", "7d")
 JWT_ALGORITHM = "HS256"
 

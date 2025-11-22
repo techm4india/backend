@@ -1,7 +1,6 @@
 import random
 from datetime import datetime, timedelta
 from src.models.otp_model import OtpModel
-from src.utils.logger import logger
 
 
 class OtpService:
@@ -33,9 +32,6 @@ class OtpService:
         otp = await OtpModel.create(otp_data)
 
         # TODO: Integrate with SMS/Email service to send OTP
-        # For now, log it (remove in production)
-        from src.utils.logger import log
-        log("INFO", f"OTP for {target}: {code} (expires in 5 minutes)")
 
         return {
             "id": otp["id"],

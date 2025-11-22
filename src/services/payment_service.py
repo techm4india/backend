@@ -15,8 +15,6 @@ RAZORPAY_SECRET = os.getenv("RAZORPAY_SECRET")
 razorpay_client = None
 if RAZORPAY_KEY_ID and RAZORPAY_SECRET:
     razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_SECRET))
-else:
-    print("Warning: Razorpay credentials not configured. Payment features will not work.")
 
 
 class PaymentService:

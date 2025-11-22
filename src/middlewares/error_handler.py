@@ -1,7 +1,7 @@
 from fastapi import Request, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from src.utils.logger import logger
+from src.utils.logger import log
 import os
 
 
@@ -39,7 +39,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 async def general_exception_handler(request: Request, exc: Exception):
     """Handle general exceptions"""
-    logger("ERROR", "Unhandled exception", {
+    log("ERROR", "Unhandled exception", {
         "error": str(exc),
         "path": request.url.path,
         "method": request.method,
