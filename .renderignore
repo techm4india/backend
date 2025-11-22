@@ -1,0 +1,47 @@
+# Vercel-specific (not needed for Render)
+api/
+vercel.json
+.vercelignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation (optional - remove if you want to include)
+*.md
+!README.md
+
+# Test files
+tests/
+pytest.ini
+
