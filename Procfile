@@ -1,2 +1,2 @@
-web: gunicorn src.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+web: uvicorn src.main:app --host 0.0.0.0 --port $PORT --workers 4
 
