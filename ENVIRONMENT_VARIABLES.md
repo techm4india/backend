@@ -1,6 +1,6 @@
-# Environment Variables for Vercel Deployment
+# Environment Variables for Render Deployment
 
-Add these environment variables in **Vercel Dashboard → Your Project → Settings → Environment Variables**
+Add these environment variables in **Render Dashboard → Your Service → Environment**
 
 ---
 
@@ -34,21 +34,22 @@ Add these environment variables in **Vercel Dashboard → Your Project → Setti
 | Variable Name | Default Value | Description |
 |--------------|--------------|-------------|
 | `ENVIRONMENT` | `development` | Set to `production` for production |
-| `CORS_ORIGIN` | `*` | Comma-separated list of allowed origins (e.g., `https://your-frontend.vercel.app,https://www.yourdomain.com`) |
-| `PORT` | `4000` | Server port (Vercel handles this automatically) |
+| `CORS_ORIGIN` | `*` | Comma-separated list of allowed origins (e.g., `https://your-frontend.com,https://www.yourdomain.com`) |
+| `PORT` | `8000` | Server port (Render sets this automatically via `$PORT`) |
+| `PYTHON_VERSION` | `3.11.0` | Python version (set in render.yaml) |
 
 ---
 
 ## 📋 Complete Environment Variables List
 
-Copy and paste this into Vercel Dashboard:
+Copy and paste this into Render Dashboard → Environment:
 
 ```
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
 SUPABASE_ANON_KEY=your_anon_key_here
 ENVIRONMENT=production
-CORS_ORIGIN=https://your-frontend.vercel.app
+CORS_ORIGIN=https://your-frontend-domain.com
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_SECRET=your_razorpay_secret
 ```
@@ -77,13 +78,14 @@ RAZORPAY_SECRET=your_razorpay_secret
 
 ## ✅ Verification Checklist
 
-After adding environment variables in Vercel:
+After adding environment variables in Render:
 
 - [ ] All required variables are set
 - [ ] `SUPABASE_URL` starts with `https://`
 - [ ] `CORS_ORIGIN` includes your frontend URL (if you have one)
 - [ ] `ENVIRONMENT` is set to `production`
-- [ ] No spaces or quotes around values in Vercel
+- [ ] No spaces or quotes around values in Render
+- [ ] `PORT` is not manually set (Render handles this automatically)
 
 ---
 
@@ -99,9 +101,23 @@ After adding environment variables in Vercel:
 
 ## 🔄 After Deployment
 
-1. Test health endpoint: `https://your-app.vercel.app/api/health`
-2. Check API docs: `https://your-app.vercel.app/docs`
-3. Verify environment variables are loaded (check Vercel logs)
+1. Test health endpoint: `https://your-service.onrender.com/api/health`
+2. Check API docs: `https://your-service.onrender.com/docs`
+3. Verify environment variables are loaded (check Render logs)
 4. Test authentication endpoints
 5. Update frontend `VITE_API_URL` to your backend URL
 
+---
+
+## 📝 Setting Environment Variables in Render
+
+### Method 1: Via Dashboard
+1. Go to your service in Render Dashboard
+2. Click **Environment** tab
+3. Click **"Add Environment Variable"**
+4. Enter key and value
+5. Click **"Save Changes"**
+6. Render will automatically redeploy
+
+### Method 2: Via render.yaml
+Environment variables can be defined in `render.yaml` (see the file for examples). Variables marked with `sync: false` need to be set manually in the dashboard.

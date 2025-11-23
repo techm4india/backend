@@ -31,7 +31,7 @@ This guide will help you deploy your FastAPI backend on Render.
      SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
      SUPABASE_ANON_KEY=your_anon_key
      ENVIRONMENT=production
-     CORS_ORIGIN=https://your-frontend.vercel.app
+     CORS_ORIGIN=https://your-frontend-domain.com
      RAZORPAY_KEY_ID=your_razorpay_key_id (optional)
      RAZORPAY_SECRET=your_razorpay_secret (optional)
      ```
@@ -53,7 +53,7 @@ This guide will help you deploy your FastAPI backend on Render.
    - **Name**: `backend-api` (or your choice)
    - **Environment**: `Python 3`
    - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn src.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+   - **Start Command**: `uvicorn src.main:app --host 0.0.0.0 --port $PORT --workers 4`
 
 4. **Set Environment Variables**
    - Go to **Environment** tab
@@ -78,7 +78,7 @@ SUPABASE_ANON_KEY=your_anon_key
 ### Optional
 ```
 ENVIRONMENT=production
-CORS_ORIGIN=https://your-frontend.vercel.app
+CORS_ORIGIN=https://your-frontend-domain.com
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_SECRET=your_razorpay_secret
 PORT=8000 (Render sets this automatically)
@@ -95,27 +95,17 @@ pip install -r requirements.txt
 
 ### Start Command
 ```
-gunicorn src.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+uvicorn src.main:app --host 0.0.0.0 --port $PORT --workers 4
 ```
 
 **Explanation:**
-- `gunicorn` - Production WSGI/ASGI server
+- `uvicorn` - ASGI server for FastAPI
 - `src.main:app` - Your FastAPI app location
-- `-w 4` - 4 worker processes
-- `-k uvicorn.workers.UvicornWorker` - Use Uvicorn workers for async support
-- `--bind 0.0.0.0:$PORT` - Bind to all interfaces on Render's port
+- `--host 0.0.0.0` - Bind to all interfaces
+- `--port $PORT` - Use Render's port (automatically set)
+- `--workers 4` - 4 worker processes for better performance
 
 ---
-
-## Differences from Vercel
-
-| Aspect | Vercel | Render |
-|--------|--------|--------|
-| **Type** | Serverless functions | Traditional server |
-| **Entry Point** | `api/index.py` | `src/main.py` |
-| **Adapter** | Mangum (ASGI→Lambda) | Gunicorn (ASGI server) |
-| **Scaling** | Auto-scaling per request | Fixed workers |
-| **Cold Starts** | Yes (serverless) | No (always running) |
 
 ---
 

@@ -18,7 +18,7 @@ Production-ready FastAPI backend using Supabase as the database and authenticati
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Payment**: Razorpay
-- **Deployment**: Render (or Vercel)
+- **Deployment**: Render
 
 ## Quick Start
 
@@ -37,7 +37,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 SUPABASE_ANON_KEY=your_anon_key
 ENVIRONMENT=production
-CORS_ORIGIN=https://your-frontend.vercel.app
+CORS_ORIGIN=https://your-frontend-domain.com
 ```
 
 ### 3. Run Locally
@@ -54,7 +54,7 @@ uvicorn src.main:app --reload --port 8000
 
 ## Deployment
 
-### Render (Recommended)
+### Render Deployment
 
 See `RENDER_DEPLOYMENT.md` for detailed instructions.
 
@@ -63,13 +63,9 @@ See `RENDER_DEPLOYMENT.md` for detailed instructions.
 2. Connect to Render
 3. Use `render.yaml` or set:
    - Build: `pip install -r requirements.txt`
-   - Start: `gunicorn src.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+   - Start: `uvicorn src.main:app --host 0.0.0.0 --port $PORT --workers 4`
 4. Set environment variables
 5. Deploy
-
-### Vercel (Alternative)
-
-See `vercel.json` and `api/index.py` for Vercel serverless deployment.
 
 ## API Endpoints
 

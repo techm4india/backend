@@ -1,7 +1,4 @@
-# Vercel-specific (not needed for Render)
-api/
-vercel.json
-.vercelignore
+# Render ignores these files
 
 # Python
 __pycache__/
